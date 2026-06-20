@@ -2,46 +2,77 @@ const mongoose = require('mongoose')
 
 // create Schema
 
-const ArticleSchema = new mongoose.Schema({
-    title : {
+const authorSchema = new mongoose.Schema({
+    nameOfAuthor: {
+        type: String,
+        required: true
+    },
+    emailofAuthor: {
+        type: String,
+        required: true
+    },
+    profileUrl : {
         type : String,
+        required: true
+    }
+}, {"strict" : "throw"})
+
+
+const commentSchema = new mongoose.Schema({
+    nameOfUser : {
+        type : String ,
+        required : true
+    } ,
+    comment : {
+        type : String ,
+        required : true
+    }
+} , {"strict" : "throw"})
+
+
+
+const ArticleSchema = new mongoose.Schema({
+    authorData:{
+          type : authorSchema
+    },
+    articleId : {
+        type : Date,
         required : true
     },
+    title: {
+        type : String,
+        required : true
+    } ,
     content : {
         type : String,
         required : true
     },
-    author : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'userAuthor',
+    category : {
+        type : String,
         required : true
     },
-    createdAt : {
+    dateOfCreation : {
         type : Date,
-        default : Date.now
+        required : true
     },
-    updatedAt : {
+    dateOfModification : {
         type : Date,
-        default : Date.now
+        required : true
     },
-    isActive : {
+    comments : {
+        type : [commentSchema],
+        default : []
+    } , 
+    isArticleActive : {
         type : Boolean,
         default : true
-    },
-    likes : {
-        type : Number,
-        default : 0
-    },
-    comments:[{
-        username : String,
-        comment : String,
-        createdAt : Date,
-    }]
+    }
+    
+}, { "strict": "throw" })
 
-} , {"strict":"throw"})
+
 
 // create model
-
-const articleModel = mongoose.model('articlemodel' , ArticleSchema)
+const articleModel = mongoose.model('articlemodel', ArticleSchema)
 
 module.exports = articleModel
