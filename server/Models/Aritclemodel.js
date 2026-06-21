@@ -36,7 +36,7 @@ const ArticleSchema = new mongoose.Schema({
           type : authorSchema
     },
     articleId : {
-        type : Date,
+        type : Number,
         required : true
     },
     title: {
