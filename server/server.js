@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
+const cors = require('cors')
 
 // import APIs
 const userApi = require('./API/userAPI')
@@ -10,6 +11,7 @@ const adminApi = require('./API/adminAPI')
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 const port = process.env.PORT || 4000
 // if port number is not there 4000 will be picked

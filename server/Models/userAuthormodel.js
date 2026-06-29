@@ -12,8 +12,7 @@ const userAuthorSchema = new mongoose.Schema({
         required : true
     },
     lastName :{
-        type : "String",
-        required : true
+        type : "String"
     },
     email :{
         type : "String",

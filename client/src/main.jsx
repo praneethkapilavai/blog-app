@@ -13,6 +13,9 @@ import ArticleById from "./components/common/ArticleById.jsx"
 import UserProfile from "./components/user/UserProfile.jsx"
 import AuthorProfile from "./components/author/authorProfile.jsx"
 import PostArticle from "./components/author/PostArticle.jsx"
+import App from './App.jsx'
+import { UserAuthorContext } from './contexts/UserAuthorContext.jsx'
+// Imports
 
 const browserRouterObj = createBrowserRouter([
   {
@@ -38,14 +41,17 @@ const browserRouterObj = createBrowserRouter([
           { path: "newarticle", element: <PostArticle /> },
           { path: "", element: <Navigate to="articles" /> }
         ]
-      },
+      }
     ]
   }
 ])
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={browserRouterObj} />
-  </StrictMode>,
-)
+// Clerk logic moved to RootLayout.jsx
 
+createRoot(document.getElementById('root')).render(
+  // <StrictMode>
+    <UserAuthorContext>
+      <RouterProvider router={browserRouterObj} />
+    </UserAuthorContext>
+  // </StrictMode>,
+)
