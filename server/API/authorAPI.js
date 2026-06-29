@@ -19,7 +19,7 @@ authorApi.post('/registerauthor', asyncHandler(async (req, res) => {
 
     if (authorInDb) {
         if (authorInDb.role == "Author") {
-            return res.send({ message: "Author already exists with this email" })
+            return res.send({ message: "You are already an author" })
         }
         else {
             return res.send({ message: "User already exists with this email" })
@@ -27,7 +27,7 @@ authorApi.post('/registerauthor', asyncHandler(async (req, res) => {
     }
     else {
         const result = await userAuthor.create(newAuthor);
-        res.send({ message: " new author created", payload: result });
+        res.send({ message: "new author created", payload: result });
     }
 
 }))

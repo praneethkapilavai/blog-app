@@ -16,6 +16,7 @@
     "express": "^5.2.1",
     "express-async-handler": "^1.2.0",
     "mongoose": "^9.7.1",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "react-hook-form": "^7.80.0"
   }
 }

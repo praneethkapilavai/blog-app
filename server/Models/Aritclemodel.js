@@ -52,11 +52,11 @@ const ArticleSchema = new mongoose.Schema({
         required : true
     },
     dateOfCreation : {
-        type : Date,
+        type : String,
         required : true
     },
     dateOfModification : {
-        type : Date,
+        type : String,
         required : true
     },
     comments : {

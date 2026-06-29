@@ -36,7 +36,7 @@ const browserRouterObj = createBrowserRouter([
       {
         path: "author-profile/:email", element: <AuthorProfile />,
         children: [
-          { path: "artilces", element: <Articles /> },
+          { path: "articles", element: <Articles /> },
           { path: ":articleId", element: <ArticleById /> },
           { path: "newarticle", element: <PostArticle /> },
           { path: "", element: <Navigate to="articles" /> }

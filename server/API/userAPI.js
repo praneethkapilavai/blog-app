@@ -16,7 +16,7 @@ userApi.post('/registeruser' , asyncHandler(async (req , res)=>{
 
     if(userInDb){
         if(userInDb.role == "User"){
-            return res.send({message : "User already exists with this email"})
+            return res.send({message : "You are already a user" , payload : userInDb})
         }
         else{
             return res.send({message : "Author already exists with this email"})
@@ -24,7 +24,7 @@ userApi.post('/registeruser' , asyncHandler(async (req , res)=>{
     }
     else {
         const result = await userAuthor.create(newUser);
-        res.send({message: " new user created" , payload : result});
+        res.send({message: "new user created" , payload : result});
     }
     
 }))

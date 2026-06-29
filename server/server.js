@@ -35,3 +35,9 @@ app.use('/author-api' , authorApi);
 app.use('/admin-api' , adminApi);
 
 
+app.use((err , req , res , next)=>{
+    res.send({
+        status : err.status || 500,
+        message : err.message || "something went wrong"
+    })
+})
