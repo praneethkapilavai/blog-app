@@ -14,8 +14,15 @@ import UserProfile from "./components/user/UserProfile.jsx"
 import AuthorProfile from "./components/author/authorProfile.jsx"
 import PostArticle from "./components/author/PostArticle.jsx"
 import App from './App.jsx'
+import { ClerkProvider } from '@clerk/react'
 import { UserAuthorContext } from './contexts/UserAuthorContext.jsx'
 // Imports
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
 
 const browserRouterObj = createBrowserRouter([
   {
@@ -50,8 +57,11 @@ const browserRouterObj = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
-    <UserAuthorContext>
-      <RouterProvider router={browserRouterObj} />
-    </UserAuthorContext>
+  
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <UserAuthorContext>
+        <RouterProvider router={browserRouterObj} />
+      </UserAuthorContext>
+    </ClerkProvider>
   // </StrictMode>,
 )

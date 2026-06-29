@@ -5,13 +5,20 @@ import {useContext} from "react";
 import { UserAuthorContextObj } from "../../contexts/UserAuthorContext";
 import {useNavigate} from "react-router-dom";
 
+import { useUser } from "@clerk/react";
+
+
 const PostArticle = () => {
-
-
+  const { user } = useUser();
+  
+  
+  
   const { register, handleSubmit, formState: { errors } } = useForm();
   const {currentUser} = useContext(UserAuthorContextObj)
   const navigate = useNavigate();
-
+  
+  console.log("Context User:", currentUser);
+  console.log("Clerk User:", user);
     async function handlePublishArticle(articleObj){
 
         const authorData = {
@@ -26,42 +33,41 @@ const PostArticle = () => {
       let currDate = new Date();
       articleObj.dateOfCreation = currDate.getDate() 
                                   + "-"
-                                  + currDate.getMonth()
+                                  + (currDate.getMonth() + 1)
                                   + "-"
-                                  + currDate.getFullYear();
+                                  + currDate.getFullYear()
                                   + " "
-                                  +currDate.toLocaleDateString("en-US" , {hour12 : true})
+                                  + currDate.toLocaleTimeString("en-US" , {hour12 : true});
+                                  
       articleObj.dateOfModification = currDate.getDate() 
                                   + "-"
-                                  + currDate.getMonth()
+                                  + (currDate.getMonth() + 1)
                                   + "-"
-                                  + currDate.getFullYear();
+                                  + currDate.getFullYear()
                                   + " "
-                                  +currDate.toLocaleDateString("en-US" , {hour12 : true})
+                                  + currDate.toLocaleTimeString("en-US" , {hour12 : true});
 
       articleObj.comments = []
       articleObj.isArticleActive = true;
 
       // console.log(articleObj)
+      // console.log(currentUser)
 
       let resp = await axios.post("http://localhost:3000/author-api/createarticle" , articleObj)
 
       // console.log(resp)
 
-      if(resp.statusText === "OK"){
+      let {message} = resp.data;
+      // console.log(message);
+      if(message === "article created"){
         // go to articles page
-        alert('article posted successfully')
-        navigate('/author-profile/articles')
+        alert('article posted successfully');
+        navigate(`../articles`);
       }
       else{
-        alert(resp.data.message)
-        navigate('/author-profile/create-article')
+        alert('article not posted')
       }
-
     }
-
-
-  
 
 
   return (
