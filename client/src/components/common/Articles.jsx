@@ -66,7 +66,7 @@ const Articles = () => {
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 ">
           {articles.map((article) => (
             <div className="col" key={article.articleId || article._id}>
-              <Link to={`../${article.articleId}`} className="text-decoration-none">
+              <Link to={`../${article.articleId}` } state={article} className="text-decoration-none">
                 <div 
                   className="card h-100 shadow-sm border-0 rounded-4  bg-body-secondary" 
                   style={{ transition: "transform 0.2s, box-shadow 0.2s" }}

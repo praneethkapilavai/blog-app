@@ -28,7 +28,8 @@ const Home = () => {
       profileImageUrl: user.imageUrl,
       role: selectedRole
     };
-    setCurrentUser(updatedUser);
+    // setCurrentUser(updatedUser);
+    // console.log("frim home" ,updatedUser.role);
 
     if (selectedRole === "User") {
       // console.log(updatedUser)
@@ -38,8 +39,8 @@ const Home = () => {
       );
       let { message, payload } = res.data
       if (message === "new user created" || message === "You are already a user") {
-        navigate(`/user-profile/${currentUser.email}`)
-        setCurrentUser({ ...currentUser, ...payload })
+        setCurrentUser({ ...updatedUser, ...payload })
+        navigate(`/user-profile/${updatedUser.email}`)
       } else {
         setError(message)
         // console.log(message)
@@ -54,8 +55,9 @@ const Home = () => {
       );
       let { message, payload } = res.data
       if (message === "new author created" || message === "You are already an author") {
-        navigate(`/author-profile/${updatedUser.email}`)
         setCurrentUser({ ...updatedUser, ...payload })
+        // console.log("homr",payload);
+        navigate(`/author-profile/${updatedUser.email}`)
       } else {
         setError(message)
         // console.log(message)
