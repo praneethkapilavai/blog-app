@@ -43,7 +43,7 @@ authorApi.post('/createarticle', asyncHandler(async (req, res) => {
 authorApi.get('/viewallarticles', asyncHandler(async (req, res) => {
     let allArticles = await articleModel.find({isArticleActive : true});
     if (!allArticles) return res.status(404).send({ message: "no articles found" });
-    res.status(200).send({ message: "success", articles: allArticles });
+    res.status(200).send({ message: "success", payload: allArticles });
 }))
 
 // modify an article

@@ -17,8 +17,8 @@ const PostArticle = () => {
   const {currentUser} = useContext(UserAuthorContextObj)
   const navigate = useNavigate();
   
-  console.log("Context User:", currentUser);
-  console.log("Clerk User:", user);
+  // console.log("Context User:", currentUser);
+  // console.log("Clerk User:", user);
     async function handlePublishArticle(articleObj){
 
         const authorData = {
@@ -61,7 +61,7 @@ const PostArticle = () => {
       // console.log(message);
       if(message === "article created"){
         // go to articles page
-        alert('article posted successfully');
+        // alert('article posted successfully');
         navigate(`../articles`);
       }
       else{
