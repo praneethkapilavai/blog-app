@@ -3,6 +3,8 @@ const userApi = express.Router();
 const userAuthor = require('../Models/userAuthormodel')
 const articleModel = require('../Models/Aritclemodel')
 const asyncHandler = require('express-async-handler')
+const { getAuth } = require("@clerk/express");
+
 
 userApi.get('/getusers' , asyncHandler(async (req , res)=>{
     const usersList = await userAuthor.find({role : "User"});
@@ -28,6 +30,22 @@ userApi.post('/registeruser' , asyncHandler(async (req , res)=>{
     }
     
 }))
+
+
+
+userApi.get('/viewallarticles', asyncHandler(async (req, res) => {
+    const { userId } = getAuth(req);
+
+    if (!userId) {
+        return res.status(401).send({
+            message: "Unauthorized. Please sign in."
+        }); 
+    }
+    //  console.log("user")
+    let allArticles = await articleModel.find({isArticleActive : true});
+    if (!allArticles) return res.status(404).send({ message: "no articles found" });
+    res.status(200).send({ message: "success", payload: allArticles });
+})) 
 
 
 // add comment

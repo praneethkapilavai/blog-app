@@ -30,8 +30,8 @@ const browserRouterObj = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { path: "", element: <Home /> },
-      { path: "signin", element: <Signin /> },
-      { path: "signup", element: <Signup /> },
+      { path: "signin/*", element: <Signin /> },
+      { path: "signup/*", element: <Signup /> },
       {
         path: "user-profile/:email", element: <UserProfile />,
         children: [
@@ -53,7 +53,6 @@ const browserRouterObj = createBrowserRouter([
   }
 ])
 
-// Clerk logic moved to RootLayout.jsx
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode>

@@ -2,15 +2,34 @@ import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
+import { useAuth } from "@clerk/react";
+import {useContext} from 'react'
+import UserAuthorContext from '../../contexts/UserAuthorContext'
+
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const {currentUser} = useContext(UserAuthorContext);
+  
+  const { getToken } = useAuth();
 
   async function getArticles() {
+    const token = await getToken();
     try {
-      let resp = await axios.get('http://localhost:3000/author-api/viewallarticles')
+      let currMem = currentUser.role
+      // console.log(currMem);
+
+      let endpoint = (currMem == "Author")? "author-api" : "user-api";
+      let resp = await axios.get(
+            `http://localhost:3000/${endpoint}/viewallarticles`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
       if (resp.data.message === "success") {
         // Fix: The backend sends 'articles', not 'payload'
@@ -27,8 +46,9 @@ const Articles = () => {
   }
 
   useEffect(() => {
+    if (!currentUser.role) return;
     getArticles();
-  }, [])
+  }, [currentUser.role])
 
   return (
     <div className="container mt-4 mb-5">
@@ -61,6 +81,7 @@ const Articles = () => {
           <p className="text-muted">There are currently no articles to display.</p>
         </div>
       )}
+{/* {console  .log("from articles",articles)} */}
 
       {!loading && !error && articles.length > 0 && (
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 ">
