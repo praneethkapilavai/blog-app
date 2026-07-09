@@ -32,7 +32,6 @@ userApi.post('/registeruser' , asyncHandler(async (req , res)=>{
 }))
 
 
-
 userApi.get('/viewallarticles', asyncHandler(async (req, res) => {
     const { userId } = getAuth(req);
 
