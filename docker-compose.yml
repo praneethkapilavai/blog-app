@@ -1,0 +1,60 @@
+services:
+  # -----------------------------------------------
+  # Backend API Server (Node.js + Express + Mongoose)
+  # -----------------------------------------------
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: blogapp-server
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./server/.env
+    environment:
+      - PORT=3000
+    networks:
+      - blogapp-net
+
+  # -----------------------------------------------
+  # Frontend Client (React + Vite + Nginx)
+  # -----------------------------------------------
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        - VITE_CLERK_PUBLISHABLE_KEY=${VITE_CLERK_PUBLISHABLE_KEY:-pk_test_YW11c2VkLWluc2VjdC01Mi5jbGVyay5hY2NvdW50cy5kZXYk}
+    container_name: blogapp-client
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - server
+    networks:
+      - blogapp-net
+
+  # -----------------------------------------------
+  # (Optional) Local MongoDB Service
+  # Uncomment below if you want a local MongoDB container
+  # instead of MongoDB Atlas (and update MONGOURL in .env to:
+  # mongodb://mongo:27017/blogapp)
+  # -----------------------------------------------
+  # mongo:
+  #   image: mongo:7.0
+  #   container_name: blogapp-mongo
+  #   restart: unless-stopped
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongo-data:/data/db
+  #   networks:
+  #     - blogapp-net
+
+networks:
+  blogapp-net:
+    driver: bridge
+
+# volumes:
+#   mongo-data:

@@ -139,6 +139,29 @@ This constraint ensures that:
 
 ---
 
+### 🐳 Running with Docker (Recommended)
+
+#### Option 1: Production Mode (Optimized Nginx + Node)
+Run the entire stack (React SPA served by Nginx + Node Express API) with one command:
+```bash
+docker compose up --build
+```
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:3000`
+
+#### Option 2: Development Mode (Hot-Reloading)
+Run in development mode with live volume mounting:
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+
+To stop containers:
+```bash
+docker compose down
+```
+
+---
+
 ## 🔌 API Documentation
 
 ### 1. User API (`/user-api`)
