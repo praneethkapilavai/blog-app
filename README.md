@@ -1,3 +1,9 @@
+
+
+
+https://github.com/user-attachments/assets/62d86baf-1f1e-4db7-a88b-739d5fd91773
+
+
 # BlogApp - Fullstack Blogging Platform
 
 A fullstack web application featuring a blogging platform built with **React & Vite** on the frontend, and **Node.js, Express, & MongoDB** on the backend. The platform supports multiple roles (User, Author, Admin) and handles article management.
